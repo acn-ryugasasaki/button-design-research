@@ -1,6 +1,9 @@
 <template>
   <div class="Index">
     <h1 class="Index_Heading _h1">ボタンのデザインリサーチ</h1>
+    <h2 class="Index_Heading _h2">
+      ホバーしたりクリックしてみたりクリックしたまま放置みたりしてみてください〜
+    </h2>
     <ul class="Index_List">
       <li
         class="Index_Item"
@@ -29,6 +32,7 @@ import { BASIC_BUTTON_VARIANTS } from '@/components/BasicButton.vue';
     }
     &._h2 {
       font-size: 20px;
+      margin-bottom: 24px;
     }
   }
   &_List {

@@ -17,6 +17,12 @@ export const BASIC_BUTTON_VARIANTS = {
     'acceleration',
     'blur',
     'copy',
+    'clickable',
+    'elevation',
+    'rhythm',
+    'static',
+    'fadein',
+    'visual',
   ],
 } as const;
 </script>
@@ -42,11 +48,11 @@ withDefaults(defineProps<Props>(), {
   background-color: #fff;
   transition: 0.3s;
   position: relative;
-  &:hover {
-    opacity: 0.6;
-  }
   &:active {
     top: 3px;
+  }
+  &:hover {
+    opacity: 0.6;
   }
   &._inclination {
     &:hover {
@@ -134,6 +140,12 @@ withDefaults(defineProps<Props>(), {
     &:hover {
       opacity: 1;
     }
+    &:active {
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
     &::before,
     &::after {
       transition: 0.3s;
@@ -150,17 +162,57 @@ withDefaults(defineProps<Props>(), {
       padding: 8px 12px;
       font-size: 14px;
       text-align: center;
+      opacity: 0;
     }
     &:hover {
       &::before {
         top: -110%;
         bottom: inherit;
+        opacity: 1;
       }
       &::after {
         top: inherit;
         bottom: -110%;
+        opacity: 1;
       }
     }
+  }
+  &._clickable {
+    box-shadow: 2px 4px 10px -6px rgba(0, 0, 0, 0.8);
+    &:active {
+      top: 5px;
+      background: rgba(0, 0, 0, 0.1);
+      box-shadow: none;
+    }
+  }
+  &._elevation {
+    transition: 1s ease-out;
+    &:active {
+      transition: 1s ease-in;
+      transform: translateY(-700%);
+    }
+  }
+  &._rhythm {
+    animation: rhythm 0.8s infinite;
+  }
+  &._static {
+    &:hover {
+      opacity: 1;
+    }
+    &:active {
+      top: auto;
+    }
+  }
+  &._fadein {
+    opacity: 0;
+    transition: 0.3s ease-in;
+    &:hover {
+      transition: 0.3s ease-in;
+      opacity: 1;
+    }
+  }
+  &._visual {
+    animation: visual 4s alternate infinite;
   }
 }
 
@@ -208,5 +260,47 @@ withDefaults(defineProps<Props>(), {
   100% {
     transform: translateX(0) scaleX($scale);
   }
+}
+
+@keyframes rhythm {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.05);
+  }
+  40% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.05);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes visual {
+  0% {
+    background-color: #ffc0cb;
+  } /* ピンク */
+  20% {
+    background-color: #ffa500;
+  } /* オレンジ */
+  40% {
+    background-color: #ffff00;
+  } /* 黄色 */
+  60% {
+    background-color: #adff2f;
+  } /* 緑 */
+  80% {
+    background-color: #00ced1;
+  } /* 青 */
+  100% {
+    background-color: #800080;
+  } /* 紫 */
 }
 </style>
